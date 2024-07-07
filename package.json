@@ -9,16 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.0.0",
+    "@mparticle/aquarium": "1.19.3",
+    "next": "14.2.4",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "next": "14.2.4"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "typescript": "5.5.3",
     "@types/node": "20.14.10",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "antd": "5.14.1",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.4"
+    "eslint-config-next": "14.2.4",
+    "typescript": "5.5.3"
   }
 }
