@@ -1,0 +1,9 @@
+.main {
+    height: 100vh;
+    width: 100vw - var(--nav-width);
+    padding: var(--padding-xl);
+    margin-left: var(--nav-width);
+
+    color: var(--color-text);
+    background-color: var(--mp-brand-secondary-1);
+}
