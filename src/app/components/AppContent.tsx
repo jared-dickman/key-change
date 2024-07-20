@@ -2,10 +2,12 @@ import {Metronome} from '@/app/components/Metronome'
 import NewPracticeSession from '@/app/components/NewPracticeSession'
 import {useKeyStore} from '@/app/stores/KeyStore'
 import {Card, Collapse, Space, Typography} from '@mparticle/aquarium'
+// @ts-ignore
 import {getCamelotRoute, getHarmonicKeys, getKey} from 'camelot-wheel'
 import {CircleOfFifths} from 'react-circle-of-fifths'
 import {Scale} from 'tonal'
 import styles from '.././app-content.module.css'
+import {CircleOfFifthsSelection} from "react-circle-of-fifths/lib/CircleOfFifthsSelection";
 
 
 export function AppContent() {
@@ -71,7 +73,7 @@ export function AppContent() {
     </div>
   </>
 
-  function handleKeySelection(key): void {
+  function handleKeySelection(key: CircleOfFifthsSelection): void {
     setKey(key)
     const degrees = [1, 3, 5, 7].map(Scale.degrees(key?.tonic + ' ' + key?.tonality))
     setDegrees(degrees)
@@ -87,6 +89,6 @@ function renderObjectArray(arr: Record<string, any>[]) {
 function renderObject(obj: Record<string, any>) {
   return (
     <Space direction="vertical" size="small">
-      {Object.entries(obj).map(([key, value]) => <span>{key}: {value}</span>)}
+      {Object.entries(obj).map(([key, value]) => <span key={key+value}>{key}: {value}</span>)}
     </Space>)
 }

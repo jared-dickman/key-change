@@ -10,7 +10,7 @@ export function Metronome() {
   // }
 
   const [currentDegree, setCurrentDegree] = useState(degrees[0])
-  const audioCtx = useRef(null as AudioContext)
+  const audioCtx = useRef(null as unknown as AudioContext)
 
   useEffect(() => {
     //@ts-ignore
@@ -18,10 +18,10 @@ export function Metronome() {
     audioCtx.current = new AudioContext()
 
     playMP3FromURL(audioCtx.current, 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/858/outfoxing.mp3')
-  }, [])
+  }, [playMP3FromURL])
 
 
-  const onMetronomeTick = useCallback(createOnMetronomeTick, [key])
+  const onMetronomeTick = useCallback(createOnMetronomeTick, [degrees])
 
   return <>
     <Space>
@@ -44,7 +44,7 @@ export function Metronome() {
     return response.arrayBuffer()
   }
 
-  async function playMP3FromURL(audioContext, url): Promise<void> {
+  async function playMP3FromURL(audioContext:AudioContext, url:string): Promise<void> {
     try {
       const arrayBuffer = await fetchMP3(url)
       const audioBuffer = await audioContext.decodeAudioData(arrayBuffer)

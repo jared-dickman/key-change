@@ -1,13 +1,18 @@
 import {CircleOfFifthsSelection} from 'react-circle-of-fifths'
-import {create} from 'zustand'
+import { create } from 'zustand'
 
-export const useKeyStore = create(set => {
-  return ({
-    key: undefined as CircleOfFifthsSelection,
-    setKey: (key: CircleOfFifthsSelection) => set({ key }),
+type KeyStore = {
+  key: CircleOfFifthsSelection
+  setKey: (key: CircleOfFifthsSelection) => void
+  degrees: string[]
+  setDegrees: (degrees: string[]) => void
+}
 
-    degrees: [] as string[],
-    setDegrees: (degrees: string[]) => set({ degrees }),
-  })
+export const useKeyStore = create<KeyStore>(set => ({
+      key: undefined as unknown as CircleOfFifthsSelection,
+      setKey: (key: CircleOfFifthsSelection) => set({ key }),
 
-})
+      degrees: [],
+      setDegrees: (degrees: string[]) => set({ degrees }),
+    })
+)
