@@ -1,6 +1,7 @@
 import {InstrumentOptions} from '@/app/constants/InstrumentOptions'
 import {LocalStorageKeys} from '@/app/constants/LocalStorageKeys'
 import {PracticeDifficulties} from '@/app/constants/PracticeDifficulties'
+import {PracticeSession} from '@/app/constants/PracticeSession'
 import {PracticeTypes} from '@/app/constants/PracticeTypes'
 import {StankFaces} from '@/app/constants/StankFaces'
 import {Button, Cascader, Checkbox, DatePicker, Flex, Form, Input, InputNumber, Rate, Slider, Space, Typography} from '@mparticle/aquarium'
@@ -12,17 +13,6 @@ import {useState} from 'react'
 const minBpm = 40 as const
 const maxBpm = 160 as const
 
-
-interface PracticeSession {
-  difficulty: number;
-  date: number;
-  instrumentCategory: string;
-  instrumentName: string;
-  stank: number;
-  length: number;
-  practiceType: CheckboxValueType[];
-  bpm: number
-}
 
 export default function NewPracticeSession() {
   const [bpm, setBpm] = useState<number>()
@@ -172,7 +162,6 @@ export default function NewPracticeSession() {
       practiceType,
       stank,
     }
-    debugger
 
     let sessions: PracticeSession[] = []
 
