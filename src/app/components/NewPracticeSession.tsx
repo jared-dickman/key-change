@@ -1,33 +1,24 @@
 import {InstrumentOptions} from '@/app/constants/InstrumentOptions'
+import {LocalStorageKeys} from '@/app/constants/LocalStorageKeys'
 import {PracticeDifficulties} from '@/app/constants/PracticeDifficulties'
+import {PracticeSession} from '@/app/constants/PracticeSession'
 import {PracticeTypes} from '@/app/constants/PracticeTypes'
 import {StankFaces} from '@/app/constants/StankFaces'
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  DatePicker,
-  Flex,
-  Form,
-  Input,
-  InputNumber,
-  Rate,
-  Slider,
-  Space,
-  Typography
-} from '@mparticle/aquarium'
+import {Button, Cascader, Checkbox, DatePicker, Flex, Form, Input, InputNumber, Rate, Slider, Space, Typography} from '@mparticle/aquarium'
 import {CheckboxValueType} from 'antd/lib/checkbox/Group'
 import {Dayjs} from 'dayjs'
+import {ValueType} from 'rc-cascader/lib/Cascader'
 import {useState} from 'react'
 
 const minBpm = 40 as const
 const maxBpm = 160 as const
 
+
 export default function NewPracticeSession() {
   const [bpm, setBpm] = useState<number>()
   const [difficulty, setDifficulty] = useState<number>()
   const [length, setLength] = useState<number>()
-  const [instrument, setInstrument] = useState<string>('')
+  const [instrument, setInstrument] = useState<ValueType>()
   const [date, setDate] = useState<Dayjs>()
   const [practiceType, setPracticeType] = useState<CheckboxValueType[]>()
   const [stank, setStank] = useState<number>()
@@ -69,10 +60,11 @@ export default function NewPracticeSession() {
         <Cascader options={InstrumentOptions}
                   changeOnSelect
                   expandTrigger="hover"
-                  onChange={(value: string[]) => {
-                    setInstrument((ps) => value[value.length - 1][0])
+                  onChange={value => {
+                    setInstrument(value)
                   }}
-                  value={instrument}/>
+                  value={instrument}
+        />
       </Form.Item>
     </>
   }
@@ -109,7 +101,7 @@ export default function NewPracticeSession() {
     return <>
       <Form.Item label="Difficulty">
         <Flex gap="middle">
-          <Rate tooltips={PracticeDifficulties as string[]} onChange={setDifficulty} value={difficulty}/>
+          <Rate tooltips={PracticeDifficulties as unknown as string[]} onChange={setDifficulty} value={difficulty}/>
           {difficulty ? <span>{PracticeDifficulties[difficulty - 1]}</span> : null}
         </Flex>
       </Form.Item>
@@ -145,13 +137,44 @@ export default function NewPracticeSession() {
 
 
   function saveSession() {
-    debugger
-    bpm
-    difficulty
-    length
-    date
-    instrument
-    practiceType
-    stank
+    const instrumentCategory = instrument?.[0] as string
+    const instrumentName = instrument?.[1] as string
+
+    if (!instrumentName ||
+        !instrumentCategory ||
+        !bpm ||
+        !difficulty ||
+        !length ||
+        !date ||
+        !practiceType ||
+        typeof stank === 'undefined') {
+      alert('Missing data for practice session, can not save')
+      return
+    }
+
+    const currentSession: PracticeSession = {
+      instrumentCategory,
+      instrumentName,
+      bpm,
+      difficulty,
+      length,
+      date: date.valueOf(),
+      practiceType,
+      stank,
+    }
+
+    let sessions: PracticeSession[] = []
+
+    try {
+      const existingSessionsStored = localStorage.getItem(LocalStorageKeys.sessions)
+      if (existingSessionsStored) {
+        sessions = JSON.parse(existingSessionsStored)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+
+    sessions.push(currentSession)
+    localStorage.setItem(LocalStorageKeys.sessions, JSON.stringify(sessions))
   }
 }

@@ -38,7 +38,7 @@ export const AppNavigation = () => {
     <GlobalNavigation
       logo={logo}
       tools={tools}
-      management={management}
+      management={[]/*management*/}
       onMpHomeClick={goHome}
       showSuiteLogo={true}
     />
