@@ -1,10 +1,12 @@
+import {GeneratePracticeSession} from '@/app/components/GeneratePracticeSession'
 import {Metronome} from '@/app/components/Metronome'
-import NewPracticeSession from '@/app/components/NewPracticeSession'
+import SavePracticeSession from '@/app/components/NewPracticeSession'
 import {PracticeSessionTable} from '@/app/components/PracticeSessionTable'
 import {useKeyStore} from '@/app/stores/KeyStore'
 import {Alert, Collapse, Space, Typography} from '@mparticle/aquarium'
 // @ts-ignore
 import {getCamelotRoute, getHarmonicKeys, getKey} from 'camelot-wheel'
+import {useState} from 'react'
 import {CircleOfFifths} from 'react-circle-of-fifths'
 import {CircleOfFifthsSelection} from 'react-circle-of-fifths/lib/CircleOfFifthsSelection'
 import {Scale} from 'tonal'
@@ -14,12 +16,14 @@ import styles from '.././app-content.module.css'
 export function AppContent() {
   const { key, setKey, setDegrees } = useKeyStore()
 
+  const [isGenerateOpen, setIsGenerateOpen] = useState<boolean>(false)
   return <>
     <div className={styles.main}>
 
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
 
-        {renderNewPracticeSession()}
+        {renderGeneratePracticeSession()}
+        {renderSavePracticeSession()}
         {renderViewPracticeSessions()}
         {renderTonal()}
         {renderCamelotWheel()}
@@ -30,13 +34,27 @@ export function AppContent() {
     </div>
   </>
 
-  function renderNewPracticeSession() {
+  function renderGeneratePracticeSession() {
+    return <>
+      <Collapse defaultActiveKey={['1']}
+                onChange={()=>setIsGenerateOpen(!isGenerateOpen)}
+                items={[{
+                  key: 'generate-practice-session',
+                  label: 'Generate Practice Session',
+                  children: <GeneratePracticeSession
+                    refreshSuggestion={isGenerateOpen} // generate a new practice session suggestion on every toggle
+                  />,
+                }]}/>
+    </>
+  }
+
+  function renderSavePracticeSession() {
     return <>
       <Collapse defaultActiveKey={['1']}
                 items={[{
                   key: 'new-practice-session',
                   label: 'New Practice Session',
-                  children: <NewPracticeSession/>,
+                  children: <SavePracticeSession/>,
                 }]}/>
     </>
   }
