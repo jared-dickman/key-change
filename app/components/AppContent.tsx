@@ -12,7 +12,6 @@ import {CircleOfFifthsSelection} from 'react-circle-of-fifths/lib/CircleOfFifths
 import {Scale} from 'tonal'
 import styles from '.././app-content.module.css'
 
-
 export function AppContent() {
   const { key, setKey, setDegrees } = useKeyStore()
 
@@ -37,7 +36,7 @@ export function AppContent() {
   function renderGeneratePracticeSession() {
     return <>
       <Collapse defaultActiveKey={['1']}
-                onChange={()=>setIsGenerateOpen(!isGenerateOpen)}
+                onChange={() => setIsGenerateOpen(!isGenerateOpen)}
                 items={[{
                   key: 'generate-practice-session',
                   label: 'Generate Practice Session',
@@ -76,7 +75,10 @@ export function AppContent() {
                 items={[{
                   key: 'tonal',
                   label: 'Tonal',
-                  children: <Space>{[1, 3, 5, 7].map(Scale.degrees(key?.tonic + ' ' + key?.tonality))}</Space>,
+                  children: <>
+                    {key ?
+                     <Space>{[1, 3, 5, 7].map(Scale.degrees(key?.tonic + ' ' + key?.tonality))}</Space> :
+                     <NoKeyAlert/>}</>,
                 }]}/>
     </>
   }
@@ -93,20 +95,20 @@ export function AppContent() {
                      <Space direction="vertical" size="large">
                        <span>
                          <Typography.Title level={4}>Key:</Typography.Title>
-                         {renderObject(getKey({ name: key?.tonicDisplay }))}
+                         {renderObject(getKey({ name: key?.tonic }))}
                        </span>
 
                        <span>
                          <Typography.Title level={4}>Harmonic Keys:</Typography.Title>
-                         {renderObjectArray(getHarmonicKeys({ name: key?.tonicDisplay }))}
+                         {renderObjectArray(getHarmonicKeys({ name: key?.tonic }))}
                        </span>
 
                        <span>
                          <Typography.Title level={4}>Route to Db:</Typography.Title>
-                         {renderObjectArray(getCamelotRoute({ name: key?.tonicDisplay }, { name: 'Db' }))}
+                         {renderObjectArray(getCamelotRoute({ name: key?.tonic }, { name: 'Db' }))}
                        </span>
                      </Space> :
-                     <Alert type="warning" message="First select a key"/>}</>,
+                     <NoKeyAlert/>}</>,
                 }]}/>
     </>
   }
@@ -146,6 +148,8 @@ export function AppContent() {
     setDegrees(degrees)
   }
 }
+
+const NoKeyAlert = () => <Alert type="warning" message="First select a key from the Circle of Fifths"/>
 
 function renderObjectArray(arr: Record<string, any>[]) {
   return <>

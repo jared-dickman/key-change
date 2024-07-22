@@ -130,7 +130,7 @@ export default function NewPracticeSession() {
   function renderStankFace() {
     return <>
       <Form.Item label="Stank Face">
-        <Rate defaultValue={2} character={({ index = 0 }) => StankFaces[index + 1]} onChange={setStank}/>
+        <Rate character={({ index = 0 }) => StankFaces[index + 1]} onChange={setStank}/>
       </Form.Item>
     </>
   }
