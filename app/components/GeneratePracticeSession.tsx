@@ -25,11 +25,11 @@ export function GeneratePracticeSession(props: IGeneratePracticeSessionProps) {
 
       const openai = new OpenAI({
                                   // @ts-ignore
-                                  organization: window.organization || process.env.OPEN_AI_ORGANIZATION,
+                                  organization: window.organization || process.env.NEXT_PUBLIC_OPEN_AI_ORGANIZATION,
                                   // @ts-ignore
-                                  project: window.project || process.env.OPEN_AI_PROJECT,
+                                  project: window.project || process.env.NEXT_PUBLIC_OPEN_AI_PROJECT,
                                   // @ts-ignore
-                                  apiKey: window.apiKey || process.env.OPEN_AI_API_KEY,
+                                  apiKey: window.apiKey || process.env.NEXT_PUBLIC_OPEN_AI_API_KEY,
                                   dangerouslyAllowBrowser: true,
                                 })
 
