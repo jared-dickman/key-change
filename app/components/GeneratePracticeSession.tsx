@@ -54,5 +54,10 @@ export function GeneratePracticeSession(props: IGeneratePracticeSessionProps) {
   if (isLoading) return <Skeleton/>
   if (isError) return <Result status="error"/>
 
-  return <Markdown>{suggestedSession.current}</Markdown>
+  return <Markdown components={{
+    code(props) {
+      const { node, ...rest } = props
+      return <i style={{ textWrap: 'pretty' }} {...rest} />
+    }
+  }}>{suggestedSession.current}</Markdown>
 }
