@@ -1,5 +1,5 @@
-import {LocalStorageKeys} from '@/app/constants/LocalStorageKeys'
-import {musicTeacherPrompt} from '@/app/constants/MusicTeacherPrompt'
+import {LocalStorageKeys} from '@/constants/LocalStorageKeys'
+import {musicTeacherPrompt} from '@/constants/MusicTeacherPrompt'
 import {Result, Skeleton} from '@mparticle/aquarium'
 import OpenAI from 'openai'
 import {useEffect, useRef, useState} from 'react'
@@ -21,14 +21,15 @@ export function GeneratePracticeSession(props: IGeneratePracticeSessionProps) {
     try {
       setIsError(false)
       setIsLoading(true)
+      debugger
 
       const openai = new OpenAI({
                                   // @ts-ignore
-                                  organization: window.organization,
+                                  organization: window.organization || process.env.OPEN_AI_ORGANIZATION,
                                   // @ts-ignore
-                                  project: window.project,
+                                  project: window.project || process.env.OPEN_AI_PROJECT,
                                   // @ts-ignore
-                                  apiKey: window.apiKey,
+                                  apiKey: window.apiKey || process.env.OPEN_AI_API_KEY,
                                   dangerouslyAllowBrowser: true,
                                 })
 

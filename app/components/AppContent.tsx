@@ -1,8 +1,8 @@
-import {GeneratePracticeSession} from '@/app/components/GeneratePracticeSession'
-import {Metronome} from '@/app/components/Metronome'
-import SavePracticeSession from '@/app/components/NewPracticeSession'
-import {PracticeSessionTable} from '@/app/components/PracticeSessionTable'
-import {useKeyStore} from '@/app/stores/KeyStore'
+import {GeneratePracticeSession} from '@/components/GeneratePracticeSession'
+import {Metronome} from '@/components/Metronome'
+import SavePracticeSession from '@/components/NewPracticeSession'
+import {PracticeSessionTable} from '@/components/PracticeSessionTable'
+import {useKeyStore} from '@/stores/KeyStore'
 import {Alert, Collapse, Space, Typography} from '@mparticle/aquarium'
 // @ts-ignore
 import {getCamelotRoute, getHarmonicKeys, getKey} from 'camelot-wheel'

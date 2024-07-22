@@ -1,5 +1,5 @@
 import {CircleOfFifthsSelection} from 'react-circle-of-fifths'
-import { create } from 'zustand'
+import {create} from 'zustand'
 
 type KeyStore = {
   key: CircleOfFifthsSelection

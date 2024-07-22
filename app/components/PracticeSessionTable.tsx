@@ -1,5 +1,5 @@
-import {LocalStorageKeys} from '@/app/constants/LocalStorageKeys'
-import {PracticeSession} from '@/app/constants/PracticeSession'
+import {LocalStorageKeys} from '@/constants/LocalStorageKeys'
+import {PracticeSession} from '@/constants/PracticeSession'
 import {ITableProps, Table} from '@mparticle/aquarium'
 
 export function PracticeSessionTable() {

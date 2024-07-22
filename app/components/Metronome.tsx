@@ -1,4 +1,4 @@
-import {useKeyStore} from '@/app/stores/KeyStore'
+import {useKeyStore} from '@/stores/KeyStore'
 import {Button, Space, Typography} from '@mparticle/aquarium'
 import {useCallback, useEffect, useRef, useState} from 'react'
 
