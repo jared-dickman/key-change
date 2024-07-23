@@ -1,6 +1,6 @@
 .main {
     height: 100vh;
-    width: 100vw - var(--nav-width);
+    width: calc(100vw - var(--nav-width));
     padding: var(--padding-xl);
     margin-left: var(--nav-width);
 

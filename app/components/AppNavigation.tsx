@@ -1,7 +1,8 @@
+'use client'
+
 import {GlobalNavigation, Icon, IGlobalNavigationItem, IGlobalNavigationLogo} from '@mparticle/aquarium'
 
 export const AppNavigation = () => {
-
   const logo = {
     label: 'Key Change',
     icon: <Icon name="alicorn" size="xxl"/>,

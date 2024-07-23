@@ -1,3 +1,5 @@
+'use client'
+
 import {GeneratePracticeSession} from '@/components/GeneratePracticeSession'
 import {Metronome} from '@/components/Metronome'
 import {PracticeSessionTable} from '@/components/PracticeSessionTable'
@@ -11,25 +13,22 @@ import {CircleOfFifths} from 'react-circle-of-fifths'
 import {CircleOfFifthsSelection} from 'react-circle-of-fifths/lib/CircleOfFifthsSelection'
 import {Scale} from 'tonal'
 
-export function AppContent() {
+export default function Studio() {
   const { key, setKey, setDegrees } = useKeyStore()
 
   const [isGenerateOpen, setIsGenerateOpen] = useState<boolean>(false)
   return <>
-    <div>
+    <Space direction="vertical" size="large" style={{ width: '100%' }}>
 
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+      {renderGeneratePracticeSession()}
+      {renderSavePracticeSession()}
+      {renderViewPracticeSessions()}
+      {renderTonal()}
+      {renderCamelotWheel()}
+      {renderMetronome()}
+      {renderCircleOfFifths()}
 
-        {renderGeneratePracticeSession()}
-        {renderSavePracticeSession()}
-        {renderViewPracticeSessions()}
-        {renderTonal()}
-        {renderCamelotWheel()}
-        {renderMetronome()}
-        {renderCircleOfFifths()}
-
-      </Space>
-    </div>
+    </Space>
   </>
 
   function renderGeneratePracticeSession() {

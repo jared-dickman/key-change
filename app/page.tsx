@@ -1,14 +1,13 @@
 'use client'
 
-import {AppContent} from '@/components/AppContent'
-import {AppNavigation} from '@/components/AppNavigation'
+import {Pages} from '@/constants/Pages'
 import {ConfigProvider} from '@mparticle/aquarium'
+import Link from 'next/link'
 
-export default function Home() {
+export default function App() {
   return <>
     <ConfigProvider>
-      <AppNavigation/>
-      <AppContent/>
+      <Link href={`/${Pages.Studio}`}>Login to Studio</Link>
     </ConfigProvider>
   </>
 }

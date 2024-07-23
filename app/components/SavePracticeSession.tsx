@@ -1,3 +1,5 @@
+'use client'
+
 import {InstrumentOptions} from '@/constants/InstrumentOptions'
 import {LocalStorageKeys} from '@/constants/LocalStorageKeys'
 import {PracticeDifficulties} from '@/constants/PracticeDifficulties'
@@ -14,7 +16,7 @@ const minBpm = 40 as const
 const maxBpm = 160 as const
 
 
-export default function NewPracticeSession() {
+export default function SavePracticeSession() {
   const [bpm, setBpm] = useState<number>()
   const [difficulty, setDifficulty] = useState<number>()
   const [length, setLength] = useState<number>()

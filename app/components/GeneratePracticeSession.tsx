@@ -24,12 +24,9 @@ export function GeneratePracticeSession(props: IGeneratePracticeSessionProps) {
       debugger
 
       const openai = new OpenAI({
-                                  // @ts-ignore
-                                  organization: window.organization || process.env.NEXT_PUBLIC_OPEN_AI_ORGANIZATION,
-                                  // @ts-ignore
-                                  project: window.project || process.env.NEXT_PUBLIC_OPEN_AI_PROJECT,
-                                  // @ts-ignore
-                                  apiKey: window.apiKey || process.env.NEXT_PUBLIC_OPEN_AI_API_KEY,
+                                  organization: process.env.NEXT_PUBLIC_OPEN_AI_ORGANIZATION,
+                                  project: process.env.NEXT_PUBLIC_OPEN_AI_PROJECT,
+                                  apiKey: process.env.NEXT_PUBLIC_OPEN_AI_API_KEY,
                                   dangerouslyAllowBrowser: true,
                                 })
 

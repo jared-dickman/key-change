@@ -1,8 +1,13 @@
+'use client'
+
 import {LocalStorageKeys} from '@/constants/LocalStorageKeys'
 import {PracticeSession} from '@/constants/PracticeSession'
 import {ITableProps, Table} from '@mparticle/aquarium'
 
-export function PracticeSessionTable() {
+interface IPracticeSessionTableProps {
+}
+
+export function PracticeSessionTable({}: IPracticeSessionTableProps) {
   const sessionsStored = localStorage.getItem(LocalStorageKeys.sessions)
   let sessions: PracticeSession[] = []
   try {
