@@ -21,7 +21,6 @@ export function GeneratePracticeSession(props: IGeneratePracticeSessionProps) {
     try {
       setIsError(false)
       setIsLoading(true)
-      debugger
 
       const openai = new OpenAI({
                                   organization: process.env.NEXT_PUBLIC_OPEN_AI_ORGANIZATION,
