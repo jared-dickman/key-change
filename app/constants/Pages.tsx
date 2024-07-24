@@ -1,3 +1,3 @@
 export const Pages = {
-  Studio: 'Studio'
+  Studio: 'studio'
 } as const
