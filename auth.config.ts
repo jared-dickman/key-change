@@ -1,3 +1,4 @@
+import {Pages} from '@/constants/Pages'
 import type {NextAuthConfig} from 'next-auth'
 
 export const authConfig = {
@@ -8,15 +9,14 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
-      if (isOnDashboard) {
-        if (isLoggedIn) return true
-        return false // Redirect unauthenticated users to login page
+      const isOnStudio = nextUrl.pathname.startsWith(`/${Pages.Studio}`)
+      if (isOnStudio) {
+        return isLoggedIn // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
-        return Response.redirect(new URL('/dashboard', nextUrl))
+        return Response.redirect(new URL(`/${Pages.Studio}`, nextUrl))
       }
       return true
     },
   },
-  providers: [], // Add providers with an empty array for now
+  providers: [],
 } satisfies NextAuthConfig
