@@ -1,8 +1,14 @@
 'use client'
 
+import {Pages} from '@/constants/Pages'
 import {GlobalNavigation, Icon, IGlobalNavigationItem, IGlobalNavigationLogo} from '@mparticle/aquarium'
+// import {signOutGoogle} from '@/lib/actions'
+import {signOut} from 'next-auth/react'
+import {useRouter} from 'next/navigation'
 
 export const AppNavigation = () => {
+  const router = useRouter()
+
   const logo = {
     label: 'Key Change',
     icon: <Icon name="alicorn" size="xxl"/>,
@@ -42,9 +48,16 @@ export const AppNavigation = () => {
       management={[]/*management*/}
       onMpHomeClick={goHome}
       showSuiteLogo={true}
+      navigationButtonItemOptions={{
+        withoutContainer: true,
+        label: 'Sign Out',
+        onClick: signOut
+      }}
     />
   </>
 
-  function goHome(): void {}
+  function goHome(): void {
+    router.push(`\\${Pages.Studio}`)
+  }
 
 }
