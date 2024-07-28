@@ -1,13 +1,15 @@
-'use client'
-
-import {Pages} from '@/constants/Pages'
-import {ConfigProvider} from '@mparticle/aquarium'
-import Link from 'next/link'
+import {GoogleSignin} from '@/components/GoogleSignin'
+import {ConfigProvider, Space, Typography} from '@mparticle/aquarium'
 
 export default function App() {
   return <>
     <ConfigProvider>
-      <Link href={`/${Pages.Studio}`}>Login to Studio</Link>
+      <Space direction="vertical">
+        <Space direction="vertical">
+          <Typography.Title>Signin to access your Studio</Typography.Title>
+          <GoogleSignin/>
+        </Space>
+      </Space>
     </ConfigProvider>
   </>
 }
