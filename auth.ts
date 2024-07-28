@@ -1,3 +1,4 @@
+import Google from '@auth/core/providers/google'
 import {sql} from '@vercel/postgres'
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
@@ -21,16 +22,17 @@ async function getUser(email: string): Promise<User | undefined> {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth(
+export const { auth, signIn, signOut, handlers: { GET, POST } } = NextAuth(
   {
     ...authConfig,
     providers: [
+      Google({
+               clientId: process.env.AUTH_GOOGLE_ID,
+               clientSecret: process.env.AUTH_GOOGLE_SECRET
+             }),
       Credentials(
         {
           async authorize(credentials) {
-            debugger
-
-
             const parsedCredentials = z
               .object({ email: z.string().email(), password: z.string().min(6) })
               .safeParse(credentials)
