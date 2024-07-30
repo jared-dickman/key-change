@@ -4,10 +4,10 @@ import {LocalStorageKeys} from '@/constants/LocalStorageKeys'
 import {PracticeSession} from '@/constants/PracticeSession'
 import {ITableProps, Table} from '@mparticle/aquarium'
 
-interface IPracticeSessionTableProps {
+interface PracticeSessionTableProps {
 }
 
-export function PracticeSessionTable({}: IPracticeSessionTableProps) {
+export function PracticeSessionTable({}: PracticeSessionTableProps) {
   const sessionsStored = localStorage.getItem(LocalStorageKeys.sessions)
   let sessions: PracticeSession[] = []
   try {

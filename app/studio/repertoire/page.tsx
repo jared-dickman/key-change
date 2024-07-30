@@ -1,3 +1,4 @@
+import CreateSong from '@/components/CreateSong'
 import {Skeleton} from '@mparticle/aquarium'
 import {Metadata} from 'next'
 import {Suspense} from 'react'
@@ -22,7 +23,7 @@ export default async function Page({ searchParams, }: {
       </div>
       <div>
         {/*<Search placeholder="Search invoices..."/>*/}
-        {/*<CreateSong/>*/}
+        <CreateSong/>
       </div>
       <Suspense key={query + currentPage} fallback={<Skeleton/>}>
         {/*<Table query={query} currentPage={currentPage}/>*/}
@@ -32,6 +33,5 @@ export default async function Page({ searchParams, }: {
         ...PAGES...
         {/*<Pagination totalPages={totalPages}/>*/}
       </div>
-    </div>
-  )
+    </div>)
 }
