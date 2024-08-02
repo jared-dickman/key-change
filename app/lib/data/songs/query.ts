@@ -1,4 +1,3 @@
-import {GET as insertSong} from '@/api/create-song/route'
 import {Pages} from '@/constants/Pages'
 import {Song} from '@/lib/definitions'
 import {sql} from '@vercel/postgres'
@@ -72,7 +71,7 @@ export async function createSong(prevState: SongState, formData: FormData) {
   try {
 
     const song = { artist, title } as Song
-    await insertSong(song)
+    await sql`INSERT INTO Songs (Artist, Title) VALUES (${artist}, ${title});`
 
   } catch (error) {
     // If a database error occurs, return a more specific error.

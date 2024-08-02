@@ -1,8 +1,10 @@
-import {Song} from '@/lib/definitions'
 import {sql} from '@vercel/postgres'
 import {NextResponse} from 'next/server'
 
-export async function GET({ artist, title }: Song) {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const artist = searchParams.get('artist')
+  const title = searchParams.get('title')
   if (!artist || !title) throw new Error('Artist and title are required')
 
   try {
