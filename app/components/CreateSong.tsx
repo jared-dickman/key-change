@@ -8,15 +8,13 @@ import {useFormState} from 'react-dom'
 
 export default function CreateSong() {
 
-  const initialState: SongState | any = { message: null, errors: {} }
-  const [state, formAction] = useFormState(createSong, initialState)
-
+  const [state, formAction] = useFormState<SongState, FormData>(createSong, { message: '', errors: {} })
 
   return (
     <form action={formAction}>
       <div>
-        <div>
 
+        <div>
           <div>
             <label htmlFor="artist">
               Choose an Artist
@@ -33,42 +31,25 @@ export default function CreateSong() {
               </div>
             </div>
           </div>
+          {state.errors?.artist?.map((error: string) => (<p key={error}>{error}</p>))}
         </div>
 
         <div>
-          <label htmlFor="bpm">
-            Choose an bpm
+          <label htmlFor="title">
+            Choose a title
           </label>
           <div>
             <div>
               <input
-                id="bpm"
-                name="bpm"
-                type="number"
-                step="1"
-                placeholder="Enter bpm"
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-
-        <div>
-          <label htmlFor="lyrics">
-            Choose an lyrics
-          </label>
-          <div>
-            <div>
-              <input
-                id="lyrics"
-                name="lyrics"
+                id="title"
+                name="title"
                 type="text"
-                placeholder="Enter lyrics"
+                placeholder="Enter title"
                 required
               />
             </div>
           </div>
+          {state.errors?.title?.map((error: string) => (<p key={error}>{error}</p>))}
         </div>
       </div>
       <div>

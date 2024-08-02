@@ -35,8 +35,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       Song Data!
       {song.id}
       {song.name}
-      {song.artist_id}
-      {song.bpm}
-      {song.lyrics}
+      {song.artist}
+      {song.title}
     </main>)
 }

@@ -1,3 +1,4 @@
+import {GET as insertSong} from '@/api/create-song/route'
 import {Pages} from '@/constants/Pages'
 import {Song} from '@/lib/definitions'
 import {sql} from '@vercel/postgres'
@@ -7,19 +8,16 @@ import {z} from 'zod'
 
 export type SongState = {
   errors?: {
-    lyrics?: string;
-    artist?: string;
-    bpm?: number;
+    title?: string[]
+    artist?: string[]
   };
-  message?: string | null;
+  message?: string;
 };
 
 const SongSchema = z.object({
                               id: z.string(),
-                              artistId: z.string({ invalid_type_error: 'Please select an artist.' }),
-                              bpm: z.coerce.number()
-                                .gt(0, { message: 'Please enter an bpm greater than 0.' }),
-                              lyrics: z.string(),
+                              artist: z.string({ invalid_type_error: 'Please enter an artist.' }),
+                              title: z.string(),
                               date: z.string(),
                             })
 
@@ -31,11 +29,8 @@ export async function fetchSongById(id: string) {
     const data = await sql<Song>`
       SELECT
         songs.id,
-        songs.artist_id,
-        songs.name,
-        songs.lyrics,
-        songs.bpm,
-//         songs.lyrics
+        songs.artist,
+        songs.title,
       FROM songs
       WHERE songs.id = ${id};
     `
@@ -43,7 +38,7 @@ export async function fetchSongById(id: string) {
     const song = data.rows.map(song => ({
       ...song,
       // do data conversions here
-      // bpm: song.bpm / 100, // Convert bpm from cents to dollars
+      // amount: song.amount / 100, // Convert amount from cents to dollars
     }))
 
     return song[0]
@@ -54,11 +49,11 @@ export async function fetchSongById(id: string) {
 }
 
 export async function createSong(prevState: SongState, formData: FormData) {
+  debugger
 
   const validatedFields = CreateSong.safeParse({
-                                                 artistId: formData.get('artistId'),
-                                                 bpm: formData.get('bpm'),
-                                                 lyrics: formData.get('lyrics'),
+                                                 artist: formData.get('artist'),
+                                                 title: formData.get('title'),
                                                })
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -70,16 +65,15 @@ export async function createSong(prevState: SongState, formData: FormData) {
   }
 
   // Prepare data for insertion into the database
-  const { artistId, bpm, lyrics } = validatedFields.data
-  // const amountInCents = bpm * 100
-  const date = new Date().toISOString().split('T')[0]
+  const { artist, title } = validatedFields.data
+  // const date = new Date().toISOString().split('T')[0]
 
   // Insert data into the database
   try {
-    await sql`
-      INSERT INTO invoices (artist_id, bpm, lyrics, date)
-      VALUES (${artistId}, ${bpm}, ${lyrics}, ${date})
-    `
+
+    const song = { artist, title } as Song
+    await insertSong(song)
+
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
@@ -99,9 +93,8 @@ export async function updateSong(
   formData: FormData,
 ) {
   const validatedFields = UpdateSong.safeParse({
-                                                 artistId: formData.get('artistId'),
-                                                 bpm: formData.get('bpm'),
-                                                 lyrics: formData.get('lyrics'),
+                                                 artist: formData.get('artist'),
+                                                 title: formData.get('title'),
                                                })
 
   if (!validatedFields.success) {
@@ -111,13 +104,12 @@ export async function updateSong(
     }
   }
 
-  const { artistId, bpm, lyrics } = validatedFields.data
-  // const amountInCents = bpm * 100
+  const { artist, title } = validatedFields.data
 
   try {
     await sql`
       UPDATE songs
-      SET artist_id = ${artistId}, bpm = ${bpm}, lyrics = ${lyrics}
+      SET artist = ${artist}, title = ${title}
       WHERE id = ${id}
     `
   } catch (error) {
