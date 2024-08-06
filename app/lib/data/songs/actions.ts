@@ -48,8 +48,6 @@ export async function fetchSongById(id: string) {
 }
 
 export async function createSong(prevState: SongState, formData: FormData) {
-  debugger
-
   const validatedFields = CreateSong.safeParse({
                                                  artist: formData.get('artist'),
                                                  title: formData.get('title'),
