@@ -21,6 +21,7 @@ export default function SavePracticeSession() {
   const [difficulty, setDifficulty] = useState<number>()
   const [length, setLength] = useState<number>()
   const [instrument, setInstrument] = useState<ValueType>()
+  const [description, setDescription] = useState<string>()
   const [date, setDate] = useState<Dayjs>()
   const [practiceType, setPracticeType] = useState<CheckboxValueType[]>()
   const [stank, setStank] = useState<number>()
@@ -124,7 +125,9 @@ export default function SavePracticeSession() {
   function renderPracticeDescription() {
     return <>
       <Form.Item label="Practice Description">
-        <Input.TextArea rows={3}/>
+        <Input.TextArea value={description}
+                        onChange={e => {setDescription(e.target.value)}}
+                        rows={3}/>
       </Form.Item>
     </>
   }
@@ -146,6 +149,7 @@ export default function SavePracticeSession() {
         !instrumentCategory ||
         !bpm ||
         !difficulty ||
+        !description ||
         !length ||
         !date ||
         !practiceType ||
@@ -159,6 +163,7 @@ export default function SavePracticeSession() {
       instrumentName,
       bpm,
       difficulty,
+      description,
       length,
       date: date.valueOf(),
       practiceType,
