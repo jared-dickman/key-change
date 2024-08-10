@@ -1,4 +1,4 @@
-import {fetchSongById} from '@/lib/data/songs/query'
+import {fetchSongById} from '@/lib/actions'
 import {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 

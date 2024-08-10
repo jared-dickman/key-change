@@ -2,9 +2,11 @@
 
 import {signIn} from '@/../auth'
 import {Pages} from '@/constants/Pages'
+
+import {createSong, fetchSongById, updateSong} from '@/lib/data/songs/actions'
 import {AuthError} from 'next-auth'
 
-export {createSong, updateSong, fetchSongById} from '@/lib/data/songs/actions'
+export {createSong, updateSong, fetchSongById}
 
 export async function authenticateGoogle() {
   try {

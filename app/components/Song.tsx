@@ -1,7 +1,8 @@
 'use client'
 
 import {Pages} from '@/constants/Pages'
-import {SongState, updateSong} from '@/lib/data/songs/query'
+import {updateSong} from '@/lib/actions'
+import {SongState} from '@/lib/data/songs/actions'
 import type {Song} from '@/lib/definitions'
 import {Button} from '@mparticle/aquarium'
 import Link from 'next/link'
