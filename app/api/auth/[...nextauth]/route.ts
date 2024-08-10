@@ -1,6 +1,3 @@
-import {authConfig} from '@/../auth.config'
-import NextAuth from 'next-auth'
+import {handlers} from '@/../auth'
 
-export default NextAuth(authConfig)
-
-export {GET, POST} from '@/../auth'
+export const { GET, POST } = handlers
