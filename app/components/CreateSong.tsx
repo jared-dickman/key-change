@@ -1,19 +1,19 @@
 'use client'
 
 import {Pages} from '@/constants/Pages'
-import {createSong, SongState} from '@/lib/data/songs/query'
+import {createSong} from '@/lib/actions'
+import {SongState} from '@/lib/data/songs/actions'
 import {Button} from '@mparticle/aquarium'
 import Link from 'next/link'
 import {useFormState} from 'react-dom'
 
 export default function CreateSong() {
-
   const [state, formAction] = useFormState<SongState, FormData>(createSong, { message: '', errors: {} })
 
   return (
     <form action={formAction}>
-      <div>
 
+      <div>
         <div>
           <div>
             <label htmlFor="artist">
@@ -31,7 +31,7 @@ export default function CreateSong() {
               </div>
             </div>
           </div>
-          {state.errors?.artist?.map((error: string) => (<p key={error}>{error}</p>))}
+          {state?.errors?.artist?.map((error: string) => (<p key={error}>{error}</p>))}
         </div>
 
         <div>
@@ -49,7 +49,7 @@ export default function CreateSong() {
               />
             </div>
           </div>
-          {state.errors?.title?.map((error: string) => (<p key={error}>{error}</p>))}
+          {state?.errors?.title?.map((error: string) => (<p key={error}>{error}</p>))}
         </div>
       </div>
       <div>

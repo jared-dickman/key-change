@@ -1,5 +1,6 @@
 import {Pages} from '@/constants/Pages'
 import type {NextAuthConfig} from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authConfig = {
   // Use the pages option to specify the route for custom sign-in, sign-out, and error pages.
@@ -18,5 +19,13 @@ export const authConfig = {
       return true
     },
   },
-  providers: [],
+
+  secret: process.env.AUTH_SECRET,
+  providers: [
+    GoogleProvider({
+                     clientId: process.env.AUTH_GOOGLE_ID,
+                     clientSecret: process.env.AUTH_GOOGLE_SECRET,
+                   }),
+  ],
+
 } satisfies NextAuthConfig
