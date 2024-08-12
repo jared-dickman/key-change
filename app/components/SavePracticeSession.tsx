@@ -7,7 +7,7 @@ import {PracticeSession} from '@/constants/PracticeSession'
 import {PracticeTypes} from '@/constants/PracticeTypes'
 import {StankFaces} from '@/constants/StankFaces'
 import {Button, Cascader, Checkbox, DatePicker, Flex, Form, Input, InputNumber, Rate, Slider, Space, Typography} from '@mparticle/aquarium'
-import {CheckboxValueType} from 'antd/lib/checkbox/Group'
+import CheckboxValueType from 'antd/lib/checkbox/Group'
 import {Dayjs} from 'dayjs'
 import {ValueType} from 'rc-cascader/lib/Cascader'
 import {useState} from 'react'
@@ -21,8 +21,9 @@ export default function SavePracticeSession() {
   const [difficulty, setDifficulty] = useState<number>()
   const [length, setLength] = useState<number>()
   const [instrument, setInstrument] = useState<ValueType>()
+  const [description, setDescription] = useState<string>()
   const [date, setDate] = useState<Dayjs>()
-  const [practiceType, setPracticeType] = useState<CheckboxValueType[]>()
+  const [practiceType, setPracticeType] = useState<typeof CheckboxValueType[]>()
   const [stank, setStank] = useState<number>()
 
 
@@ -62,10 +63,10 @@ export default function SavePracticeSession() {
         <Cascader options={InstrumentOptions}
                   changeOnSelect
                   expandTrigger="hover"
-                  onChange={value => {
-                    setInstrument(value)
+                  onChange={(value) => {
+                    setInstrument(value as unknown as ValueType)
                   }}
-                  value={instrument}
+                  value={instrument as any}
         />
       </Form.Item>
     </>
@@ -94,7 +95,7 @@ export default function SavePracticeSession() {
     return <>
       <Form.Item label="Type">
         <Checkbox.Group options={PracticeTypes.map(t => ({ label: t, value: t }))}
-                        onChange={(value) => setPracticeType(value)}/>
+                        onChange={(value) => setPracticeType(value as unknown as typeof CheckboxValueType[])}/>
       </Form.Item>
     </>
   }
@@ -124,7 +125,9 @@ export default function SavePracticeSession() {
   function renderPracticeDescription() {
     return <>
       <Form.Item label="Practice Description">
-        <Input.TextArea rows={3}/>
+        <Input.TextArea value={description}
+                        onChange={e => {setDescription(e.target.value)}}
+                        rows={3}/>
       </Form.Item>
     </>
   }
@@ -139,13 +142,14 @@ export default function SavePracticeSession() {
 
 
   function saveSession() {
-    const instrumentCategory = instrument?.[0] as string
-    const instrumentName = instrument?.[1] as string
+    const instrumentCategory: string = (instrument as any)?.[0]
+    const instrumentName: string = (instrument as any)?.[1]
 
     if (!instrumentName ||
         !instrumentCategory ||
         !bpm ||
         !difficulty ||
+        !description ||
         !length ||
         !date ||
         !practiceType ||
@@ -159,6 +163,7 @@ export default function SavePracticeSession() {
       instrumentName,
       bpm,
       difficulty,
+      description,
       length,
       date: date.valueOf(),
       practiceType,

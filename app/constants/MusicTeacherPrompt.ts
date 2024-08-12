@@ -12,7 +12,7 @@ instrumentCategory: string;
 instrumentName: string;
 stank: number;
 length: number;
-practiceType: CheckboxValueType[];
+practiceType: 'new' | 'repetition';
 bpm: number
 description: string
 }

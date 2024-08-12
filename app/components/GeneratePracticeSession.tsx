@@ -5,11 +5,11 @@ import OpenAI from 'openai'
 import {useEffect, useRef, useState} from 'react'
 import Markdown from 'react-markdown'
 
-interface IGeneratePracticeSessionProps {
+interface GeneratePracticeSessionProps {
   refreshSuggestion: boolean
 }
 
-export function GeneratePracticeSession(props: IGeneratePracticeSessionProps) {
+export function GeneratePracticeSession(props: GeneratePracticeSessionProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
 
