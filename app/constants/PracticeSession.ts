@@ -1,4 +1,4 @@
-import {CheckboxValueType} from 'antd/lib/checkbox/Group'
+import CheckboxValueType from 'antd/lib/checkbox/Group'
 
 export interface PracticeSession {
   difficulty: number;
@@ -8,6 +8,6 @@ export interface PracticeSession {
   instrumentName: string;
   stank: number;
   length: number;
-  practiceType: CheckboxValueType[];
+  practiceType: typeof CheckboxValueType[];
   bpm: number
 }

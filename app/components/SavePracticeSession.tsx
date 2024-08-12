@@ -7,7 +7,7 @@ import {PracticeSession} from '@/constants/PracticeSession'
 import {PracticeTypes} from '@/constants/PracticeTypes'
 import {StankFaces} from '@/constants/StankFaces'
 import {Button, Cascader, Checkbox, DatePicker, Flex, Form, Input, InputNumber, Rate, Slider, Space, Typography} from '@mparticle/aquarium'
-import {CheckboxValueType} from 'antd/lib/checkbox/Group'
+import CheckboxValueType from 'antd/lib/checkbox/Group'
 import {Dayjs} from 'dayjs'
 import {ValueType} from 'rc-cascader/lib/Cascader'
 import {useState} from 'react'
@@ -23,7 +23,7 @@ export default function SavePracticeSession() {
   const [instrument, setInstrument] = useState<ValueType>()
   const [description, setDescription] = useState<string>()
   const [date, setDate] = useState<Dayjs>()
-  const [practiceType, setPracticeType] = useState<CheckboxValueType[]>()
+  const [practiceType, setPracticeType] = useState<typeof CheckboxValueType[]>()
   const [stank, setStank] = useState<number>()
 
 
