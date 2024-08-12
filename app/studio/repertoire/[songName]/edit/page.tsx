@@ -12,7 +12,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const [songs] = await Promise.all([
                                       fetchSongById(id),
-                                      // fetchCustomers(),
                                     ])
   if (!songs) {
     notFound()
@@ -20,18 +19,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main>
-      Breadcrumbs*
-      {/*<Breadcrumbs*/}
-      {/*  breadcrumbs={[*/}
-      {/*    { label: 'Invoices', href: '/dashboard/invoices' },*/}
-      {/*    {*/}
-      {/*      label: 'Edit Invoice',*/}
-      {/*      href: `/dashboard/invoices/${id}/edit`,*/}
-      {/*      active: true,*/}
-      {/*    },*/}
-      {/*  ]}*/}
-      {/*/>*/}
-      FORM!
-      {/*<Form invoice={invoice} customers={customers}/>*/}
+      <div>Breadcrumbs*</div>
+      <div>Edit Form goes here!</div>
     </main>)
 }

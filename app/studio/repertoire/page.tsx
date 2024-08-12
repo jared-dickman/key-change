@@ -21,17 +21,15 @@ export default async function Page({ searchParams, }: {
       <div>
         <h1>Repertoire</h1>
       </div>
-      <div>
-        {/*<Search placeholder="Search invoices..."/>*/}
-        <CreateSong/>
-      </div>
+
+      <CreateSong/>
+
+      <div> Search input goes here</div>
+
       <Suspense key={query + currentPage} fallback={<Skeleton/>}>
         {/*<Table query={query} currentPage={currentPage}/>*/}
-        SONGS!
+        All Songs table goes here!
       </Suspense>
-      <div>
-        ...PAGES...
-        {/*<Pagination totalPages={totalPages}/>*/}
-      </div>
+
     </div>)
 }
