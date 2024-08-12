@@ -53,6 +53,11 @@ export function PracticeSessionTable({}: PracticeSessionTableProps) {
       key: 'practiceType',
     },
     {
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
       title: 'Stank',
       dataIndex: 'stank',
       key: 'stank',
