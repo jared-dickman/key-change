@@ -63,10 +63,10 @@ export default function SavePracticeSession() {
         <Cascader options={InstrumentOptions}
                   changeOnSelect
                   expandTrigger="hover"
-                  onChange={value => {
-                    setInstrument(value)
+                  onChange={(value) => {
+                    setInstrument(value as unknown as ValueType)
                   }}
-                  value={instrument}
+                  value={instrument as any}
         />
       </Form.Item>
     </>
@@ -95,7 +95,7 @@ export default function SavePracticeSession() {
     return <>
       <Form.Item label="Type">
         <Checkbox.Group options={PracticeTypes.map(t => ({ label: t, value: t }))}
-                        onChange={(value) => setPracticeType(value)}/>
+                        onChange={(value) => setPracticeType(value as unknown as typeof CheckboxValueType[])}/>
       </Form.Item>
     </>
   }
@@ -142,8 +142,8 @@ export default function SavePracticeSession() {
 
 
   function saveSession() {
-    const instrumentCategory = instrument?.[0] as string
-    const instrumentName = instrument?.[1] as string
+    const instrumentCategory: string = (instrument as any)?.[0]
+    const instrumentName: string = (instrument as any)?.[1]
 
     if (!instrumentName ||
         !instrumentCategory ||
