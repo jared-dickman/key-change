@@ -31,6 +31,14 @@ export const authConfig = {
       }
       return true
     },
+
+    // async session({ session, user }) {
+    //   debugger
+    //   const foundUser = await getUserById(user)
+    //   const userId = foundUser.id as string
+    //   session.user.id = userId
+    //   return session
+    // }
   },
 
   secret: process.env.AUTH_SECRET,

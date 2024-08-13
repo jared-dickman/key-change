@@ -1,3 +1,4 @@
+import {auth} from '@/../auth'
 import {Pages} from '@/constants/Pages'
 import {Song} from '@/lib/definitions'
 import {sql} from '@vercel/postgres'
@@ -52,6 +53,8 @@ export async function createSong(prevState: SongState, formData: FormData) {
                                                  artist: formData.get('artist'),
                                                  title: formData.get('title'),
                                                })
+  const session = await auth()
+  const userId = session?.user?.id
 
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
@@ -69,7 +72,27 @@ export async function createSong(prevState: SongState, formData: FormData) {
   try {
 
     const song = { artist, title } as Song
-    await sql`INSERT INTO Songs (Artist, Title) VALUES (${artist}, ${title});`
+    await sql`INSERT INTO Songs (Artist, Title, UserId) VALUES (${artist}, ${title}, ${userId});`
+
+  } catch (error) {
+    // If a database error occurs, return a more specific error.
+    return {
+      message: 'Database Error: Failed to Create Song.',
+    }
+  }
+
+  // Revalidate the cache for the invoices page and redirect the user.
+  revalidatePath(`/${Pages.Studio}/${Pages.Repertoire}`)
+  redirect(`/${Pages.Studio}/${Pages.Repertoire}`)
+}
+
+export async function readSong(prevState: SongState) {
+  try {
+    const session = await auth()
+    const userId = session?.user?.id
+
+    const song = {} as Song
+    await sql`Select * from Songs where userId = ${userId};`
 
   } catch (error) {
     // If a database error occurs, return a more specific error.

@@ -19,10 +19,10 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main>
-      <div> Breadcrumbs*</div>
-      <div> Song Data!</div>
-      <div> id -{song.id}</div>
-      <div> artist - {song.artist}</div>
-      <div> title -{song.title}</div>
+      <div>Breadcrumbs*</div>
+      <div>Song Data!</div>
+      <div>id -{song.id}</div>
+      <div>artist - {song.artist}</div>
+      <div>title -{song.title}</div>
     </main>)
 }

@@ -35,3 +35,8 @@ export async function createUser(user: User): Promise<QueryResult<QueryResultRow
   const provider = 'Google'
   return await sql`INSERT INTO users (Id, Name, Email, Password, Provider) VALUES (${id}, ${user.name}, ${user.email}, ${password}, ${provider});`
 }
+
+export async function getUserById(user: User): Promise<User> {
+  const result = await sql`Select * from users where userId = ${user.id};`
+  return result.rows[0]
+}
