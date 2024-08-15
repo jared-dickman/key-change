@@ -1,6 +1,6 @@
 'use server'
 
-import {signIn} from '@/../auth'
+import {AuthProvider, signIn} from '@/../auth'
 import {Pages} from '@/constants/Pages'
 import {createSong, fetchSongById, updateSong} from '@/lib/data/songs/actions'
 import {QueryResult, QueryResultRow, sql} from '@vercel/postgres'
@@ -36,7 +36,7 @@ export async function createUser(user: User): Promise<QueryResult<QueryResultRow
   return await sql`INSERT INTO users (Id, Name, Email, Password, Provider) VALUES (${id}, ${user.name}, ${user.email}, ${password}, ${provider});`
 }
 
-export async function getUserById(user: User): Promise<User> {
-  const result = await sql`Select * from users where userId = ${user.id};`
+export async function getUserByProvider(user: Omit<User, 'id'>, provider: AuthProvider): Promise<User> {
+  const result = await sql`SELECT * FROM users WHERE provider = ${provider} and email = ${user.email}`
   return result.rows[0]
 }

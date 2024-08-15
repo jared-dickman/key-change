@@ -1,5 +1,5 @@
 import {Pages} from '@/constants/Pages'
-import {checkUserExists, createUser} from '@/lib/actions'
+import {checkUserExists, createUser, getUserByProvider} from '@/lib/actions'
 import NextAuth, {type NextAuthConfig} from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
@@ -32,16 +32,16 @@ export const authConfig = {
       return true
     },
 
-    // async session({ session, user }) {
-    //   debugger
-    //   const foundUser = await getUserById(user)
-    //   const userId = foundUser.id as string
-    //   session.user.id = userId
-    //   return session
-    // }
+    async session({ session }) {
+      const user = session.user
+      const foundUser = await getUserByProvider(user, AuthProvider.Google)
+      if (foundUser?.id) session.user.id = foundUser.id
+      return session
+    }
   },
 
   secret: process.env.AUTH_SECRET,
+
   providers: [
     GoogleProvider({
                      clientId: process.env.AUTH_GOOGLE_ID,
@@ -51,3 +51,7 @@ export const authConfig = {
 } satisfies NextAuthConfig
 
 export const { auth, handlers, signIn, signOut } = NextAuth({ ...authConfig })
+
+export enum AuthProvider {
+  Google = 'Google',
+}
