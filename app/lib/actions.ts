@@ -37,6 +37,6 @@ export async function createUser(user: User): Promise<QueryResult<QueryResultRow
 }
 
 export async function getUserByProvider(user: Omit<User, 'id'>, provider: AuthProvider): Promise<User> {
-  const result = await sql`SELECT * FROM users WHERE provider = ${provider} and email = ${user.email}`
+  const result = await sql`SELECT id, name, email, provider FROM users WHERE provider = ${provider} and email = ${user.email}`
   return result.rows[0]
 }
