@@ -1,4 +1,6 @@
 import CreateSong from '@/components/CreateSong'
+import RepertoireTable from '@/components/RepertoireTable'
+import {Search} from '@/components/Search'
 import {Skeleton} from '@mparticle/aquarium'
 import {Metadata} from 'next'
 import {Suspense} from 'react'
@@ -7,28 +9,23 @@ export const metadata: Metadata = {
   title: 'Repertoire',
 }
 
-export default async function Page({ searchParams, }: {
+export default async function Page({ searchParams }: {
   searchParams?: { query?: string; page?: string; };
 }) {
 
   const query = searchParams?.query || ''
   const currentPage = Number(searchParams?.page) || 1
 
-  const totalPages = undefined // await fetchRepertoirePages(query)
-
   return (
     <div>
-      <div>
-        <h1>Repertoire</h1>
-      </div>
+      <h1>Repertoire</h1>
 
       <CreateSong/>
 
-      <div> Search input goes here</div>
+      <Search placeholder="Search for a title, artist, or lyric"/>
 
       <Suspense key={query + currentPage} fallback={<Skeleton/>}>
-        {/*<Table query={query} currentPage={currentPage}/>*/}
-        All Songs table goes here!
+        <RepertoireTable query={query} currentPage={currentPage}/>
       </Suspense>
 
     </div>)

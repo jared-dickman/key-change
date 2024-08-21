@@ -2,12 +2,12 @@
 
 import {AuthProvider, signIn} from '@/../auth'
 import {Pages} from '@/constants/Pages'
-import {createSong, fetchSongById, updateSong} from '@/lib/data/songs/actions'
+import {createSong, fetchFilteredRepertoire, fetchSongById, updateSong} from '@/lib/data/songs/actions'
 import {QueryResult, QueryResultRow, sql} from '@vercel/postgres'
 import type {User} from 'next-auth'
 import {AuthError} from 'next-auth'
 
-export {createSong, updateSong, fetchSongById}
+export {createSong, updateSong, fetchSongById, fetchFilteredRepertoire}
 
 export async function authenticateGoogle() {
   try {

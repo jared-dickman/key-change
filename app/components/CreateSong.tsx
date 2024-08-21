@@ -14,6 +14,43 @@ export default function CreateSong() {
     <form action={formAction}>
 
       <div>
+
+        <div>
+          <label htmlFor="title">
+            Choose a Title
+          </label>
+          <div>
+            <div>
+              <input
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Enter title"
+                required
+              />
+            </div>
+          </div>
+          {state?.errors?.title?.map((error: string) => (<p key={error}>{error}</p>))}
+        </div>
+
+
+        <div>
+          <label htmlFor="lyrics">
+            Enter Lyrics and Chords
+          </label>
+          <div>
+            <div>
+              <textarea
+                id="lyrics"
+                name="lyrics"
+                placeholder="Enter lyrics and chords"
+                required
+              />
+            </div>
+          </div>
+          {state?.errors?.lyrics?.map((error: string) => (<p key={error}>{error}</p>))}
+        </div>
+
         <div>
           <div>
             <label htmlFor="artist">
@@ -34,23 +71,6 @@ export default function CreateSong() {
           {state?.errors?.artist?.map((error: string) => (<p key={error}>{error}</p>))}
         </div>
 
-        <div>
-          <label htmlFor="title">
-            Choose a title
-          </label>
-          <div>
-            <div>
-              <input
-                id="title"
-                name="title"
-                type="text"
-                placeholder="Enter title"
-                required
-              />
-            </div>
-          </div>
-          {state?.errors?.title?.map((error: string) => (<p key={error}>{error}</p>))}
-        </div>
       </div>
       <div>
         <Link href={`/${Pages.Studio}/${Pages.Repertoire}`}>Cancel</Link>
